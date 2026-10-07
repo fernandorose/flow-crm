@@ -1,5 +1,9 @@
 import type { Pool } from "pg";
-import { userRepository, type User } from "../repository/user.repository.js";
+import {
+  userRepository,
+  type CreateUserData,
+  type User,
+} from "../repository/user.repository.js";
 
 export const userService = (db: Pool) => {
   const repository = userRepository(db);
@@ -11,6 +15,10 @@ export const userService = (db: Pool) => {
 
     async getAllUsers(): Promise<User[]> {
       return await repository.getAllUsers();
+    },
+
+    async createUser(userData: CreateUserData): Promise<User> {
+      return await repository.createUser(userData);
     },
   };
 };

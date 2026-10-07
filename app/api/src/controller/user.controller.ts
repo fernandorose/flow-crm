@@ -32,5 +32,33 @@ export const userController = (db: Pool) => {
         res.status(500).json({ message: "Internal server error" });
       }
     },
+
+    async createUser(req: Request, res: Response) {
+      const { company_id, name, email, password_hash, role } = req.body;
+
+      if (
+        typeof company_id !== "string" ||
+        typeof name !== "string" ||
+        typeof email !== "string" ||
+        typeof password_hash !== "string" ||
+        typeof role !== "string"
+      ) {
+        res.status(400).json({ message: "Invalid user data" });
+        return;
+      }
+
+      try {
+        const newUser = await service.createUser({
+          company_id,
+          name,
+          email,
+          password_hash,
+          role,
+        });
+        res.status(201).json(newUser);
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+      }
+    },
   };
 };

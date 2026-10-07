@@ -8,6 +8,7 @@ export const userRoutes = (db: Pool) => {
 
   router.get("/users/:email", controller.getUserByEmail);
   router.get("/users", controller.getAllUsers);
+  router.post("/users", controller.createUser);
 
   return router;
 };

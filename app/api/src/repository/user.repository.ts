@@ -16,14 +16,17 @@ export type CreateUserData = Omit<User, "id" | "created_at" | "updated_at">;
 export const userRepository = (db: Pool) => ({
   async createUser(userData: CreateUserData): Promise<User> {
     const query = `
-        INSERT INTO users (
-        id, 
-        company_id, 
-        name, 
-        email, 
-        password_hash, 
-        role
-        ) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`;
+    INSERT INTO users (
+      company_id,
+      name,
+      email,
+      password_hash,
+      role
+    )
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *;
+  `;
+
     const values = [
       userData.company_id,
       userData.name,
@@ -31,7 +34,9 @@ export const userRepository = (db: Pool) => ({
       userData.password_hash,
       userData.role,
     ];
+
     const result = await db.query(query, values);
+
     return result.rows[0];
   },
 
