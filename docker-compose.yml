@@ -1,0 +1,53 @@
+services:
+  api:
+    build:
+      context: ./app/api
+    container_name: flowcrm-api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app/api:/src
+      - /src/node_modules
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PORT=${PORT}
+      - DATABASE_URL=${DATABASE_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: npm run dev
+
+  # client:
+  #   build:
+  #     context: ./app/client
+  #   container_name: flowcrm-client
+  #   ports:
+  #     - "5173:5173"
+  #   volumes:
+  #     - ./app/client:/src
+  #     - /src/node_modules
+  #   environment:
+  #     - VITE_API_URL=${VITE_API_URL}
+  #   depends_on:
+  #     - api
+  #   command: npm run dev -- --host 0.0.0.0
+  
+  postgres:
+    image: postgres:18
+    container_name: flowcrm-postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U flowcrm"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    
+volumes:
+  postgres_data:
