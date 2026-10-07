@@ -5,6 +5,6 @@
 		"docker-compose.yml"
 	],
 	"service": "dev",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"workspaceFolder": "/workspaces/flow-crm",
 	"shutdownAction": "stopCompose"
 }
