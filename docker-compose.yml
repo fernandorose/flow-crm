@@ -26,20 +26,20 @@ services:
         condition: service_healthy
     command: npm run dev
 
-  # client:
-  #   build:
-  #     context: ./app/client
-  #   container_name: flowcrm-client
-  #   ports:
-  #     - "5173:5173"
-  #   volumes:
-  #     - ./app/client:/src
-  #     - /src/node_modules
-  #   environment:
-  #     - VITE_API_URL=${VITE_API_URL}
-  #   depends_on:
-  #     - api
-  #   command: npm run dev -- --host 0.0.0.0
+  client:
+    build:
+      context: ./app/client
+    container_name: flowcrm-client
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./app/client:/src
+      - /src/node_modules
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+    depends_on:
+      - api
+    command: npm run dev -- --host 0.0.0.0
 
   postgres:
     image: postgres:18
@@ -58,7 +58,7 @@ services:
       - postgres_data:/var/lib/postgresql
 
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
