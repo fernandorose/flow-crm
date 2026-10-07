@@ -1,4 +1,12 @@
 services:
+  dev:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - .:/workspaces/flow-crm
+    command: sleep infinity
+
   api:
     build:
       context: ./app/api
@@ -7,6 +15,7 @@ services:
       - "3000:3000"
     volumes:
       - ./app/api:/src
+      - ./.env:/src/.env:ro
       - /src/node_modules
     environment:
       - NODE_ENV=${NODE_ENV}
@@ -31,23 +40,28 @@ services:
   #   depends_on:
   #     - api
   #   command: npm run dev -- --host 0.0.0.0
-  
+
   postgres:
     image: postgres:18
     container_name: flowcrm-postgres
+
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+
     ports:
       - "5432:5432"
+
     volumes:
       - postgres_data:/var/lib/postgresql
+
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U flowcrm"]
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
       interval: 10s
       timeout: 5s
       retries: 5
-    
+
 volumes:
   postgres_data:

@@ -40,4 +40,10 @@ export const userRepository = (db: Pool) => ({
     const result = await db.query(query, [email]);
     return result.rows[0] || null;
   },
+
+  async getAllUsers(): Promise<User[]> {
+    const query = `SELECT * FROM users;`;
+    const result = await db.query(query);
+    return result.rows;
+  },
 });
