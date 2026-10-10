@@ -1,54 +1,21 @@
 import { Pool } from "pg";
+import { BaseRepository } from "../base/base.repository.js";
+import type { User } from "../interfaces/user.interface.js";
 
-export type User = {
-  id: string;
-  company_id: string;
-  email: string;
-  name: string;
-  password_hash: string;
-  role: string;
-  created_at: Date;
-  updated_at: Date;
-};
+export class UserRepository extends BaseRepository<User> {
+  constructor(db: Pool) {
+    super(db, "users");
+  }
 
-export type CreateUserData = Omit<User, "id" | "created_at" | "updated_at">;
+  public async createUser(userData: User): Promise<User> {
+    return this.create(userData);
+  }
 
-export const userRepository = (db: Pool) => ({
-  async createUser(userData: CreateUserData): Promise<User> {
-    const query = `
-    INSERT INTO users (
-      company_id,
-      name,
-      email,
-      password_hash,
-      role
-    )
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING *;
-  `;
+  public getUserByEmail(email: string): Promise<User | null> {
+    return this.getByEmail(email);
+  }
 
-    const values = [
-      userData.company_id,
-      userData.name,
-      userData.email,
-      userData.password_hash,
-      userData.role,
-    ];
-
-    const result = await db.query(query, values);
-
-    return result.rows[0];
-  },
-
-  async getUserByEmail(email: string): Promise<User | null> {
-    const query = `SELECT * FROM users WHERE email = $1;`;
-    const result = await db.query(query, [email]);
-    return result.rows[0] || null;
-  },
-
-  async getAllUsers(): Promise<User[]> {
-    const query = `SELECT * FROM users;`;
-    const result = await db.query(query);
-    return result.rows;
-  },
-});
+  public getAllUsers(): Promise<User[]> {
+    return this.getAll();
+  }
+}

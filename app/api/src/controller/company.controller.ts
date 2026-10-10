@@ -1,25 +1,14 @@
-import type { Pool } from "pg";
-import { companyService } from "../services/company.service.js";
 import type { Request, Response } from "express";
+import { BaseController } from "../base/base.controller.js";
+import type { Company } from "../interfaces/company.interface.js";
+import type { CompanyService } from "../services/company.service.js";
 
-export const companyController = (db: Pool) => {
-  const service = companyService(db);
+export class CompanyController extends BaseController<Company> {
+  constructor(service: CompanyService) {
+    super(service);
+  }
 
-  return {
-    async createCompany(req: Request, res: Response) {
-      const { name } = req.body;
-
-      if (typeof name !== "string") {
-        res.status(400).json({ message: "Invalid company data" });
-        return;
-      }
-
-      try {
-        const newCompany = await service.createCompany({ name });
-        res.status(201).json(newCompany);
-      } catch (error) {
-        res.status(500).json({ message: "Internal server error" });
-      }
-    },
-  };
-};
+  public async createCompany(req: Request, res: Response): Promise<void> {
+    return this.create(req, res);
+  }
+}

@@ -1,64 +1,22 @@
-import type { Pool } from "pg";
-import { userService } from "../services/user.service.js";
 import type { Request, Response } from "express";
+import { BaseController } from "../base/base.controller.js";
+import type { User } from "../interfaces/user.interface.js";
+import { UserService } from "../services/user.service.js";
 
-export const userController = (db: Pool) => {
-  const service = userService(db);
+export class UserController extends BaseController<User> {
+  constructor(service: UserService) {
+    super(service);
+  }
 
-  return {
-    async getUserByEmail(req: Request, res: Response) {
-      const { email } = req.params;
-      if (typeof email !== "string") {
-        res.status(400).json({ message: "Invalid email" });
-        return;
-      }
-      try {
-        const user = await service.getUserByEmail(email);
-        if (user) {
-          res.status(200).json(user);
-        } else {
-          res.status(404).json({ message: "User not found" });
-        }
-      } catch (error) {
-        res.status(500).json({ message: "Internal server error" });
-      }
-    },
+  public async getUserByEmail(req: Request, res: Response): Promise<void> {
+    return this.getByEmail(req, res);
+  }
 
-    async getAllUsers(req: Request, res: Response) {
-      try {
-        const users = await service.getAllUsers();
-        res.status(200).json(users);
-      } catch (error) {
-        res.status(500).json({ message: "Internal server error" });
-      }
-    },
+  public async getAllUsers(req: Request, res: Response): Promise<void> {
+    return this.getAll(req, res);
+  }
 
-    async createUser(req: Request, res: Response) {
-      const { company_id, name, email, password_hash, role } = req.body;
-
-      if (
-        typeof company_id !== "string" ||
-        typeof name !== "string" ||
-        typeof email !== "string" ||
-        typeof password_hash !== "string" ||
-        typeof role !== "string"
-      ) {
-        res.status(400).json({ message: "Invalid user data" });
-        return;
-      }
-
-      try {
-        const newUser = await service.createUser({
-          company_id,
-          name,
-          email,
-          password_hash,
-          role,
-        });
-        res.status(201).json(newUser);
-      } catch (error) {
-        res.status(500).json({ message: "Internal server error" });
-      }
-    },
-  };
-};
+  public async createUser(req: Request, res: Response): Promise<void> {
+    return this.create(req, res);
+  }
+}

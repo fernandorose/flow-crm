@@ -1,12 +1,17 @@
-import { Router } from "express";
-import { companyController } from "../controller/company.controller.js";
-import type { Pool } from "pg";
+import { BaseRoutes } from "../base/base.routes.js";
+import { CompanyController } from "../controller/company.controller.js";
+import type { Company } from "../interfaces/company.interface.js";
 
-export const companyRoutes = (db: Pool) => {
-  const router = Router();
-  const controller = companyController(db);
+export class CompanyRoutes extends BaseRoutes<Company> {
+  constructor(controller: CompanyController) {
+    super(controller);
+  }
 
-  router.post("/companies", controller.createCompany);
+  protected override routes(): void {
+    super.routes();
 
-  return router;
-};
+    this.router.post("/companies", (req, res) =>
+      this.controller.create(req, res),
+    );
+  }
+}

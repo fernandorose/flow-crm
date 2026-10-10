@@ -1,14 +1,19 @@
-import { Router } from "express";
-import { Pool } from "pg";
-import { userController } from "../controller/user.controller.js";
+import { BaseRoutes } from "../base/base.routes.js";
+import { UserController } from "../controller/user.controller.js";
+import type { User } from "../interfaces/user.interface.js";
 
-export const userRoutes = (db: Pool) => {
-  const router = Router();
-  const controller = userController(db);
+export class UserRoutes extends BaseRoutes<User> {
+  constructor(controller: UserController) {
+    super(controller);
+  }
 
-  router.get("/users/:email", controller.getUserByEmail);
-  router.get("/users", controller.getAllUsers);
-  router.post("/users", controller.createUser);
+  protected override routes(): void {
+    super.routes();
 
-  return router;
-};
+    this.router.get("/users/:email", (req, res) =>
+      this.controller.getByEmail(req, res),
+    );
+    this.router.get("/users", (req, res) => this.controller.getAll(req, res));
+    this.router.post("/users", (req, res) => this.controller.create(req, res));
+  }
+}
