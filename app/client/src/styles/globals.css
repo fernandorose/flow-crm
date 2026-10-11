@@ -1,5 +1,14 @@
+:root {
+  --default-font: "Inter Variable";
+  --condensed-font: "Roboto Condensed Variable";
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  font-family: var(--default-font);
 }
