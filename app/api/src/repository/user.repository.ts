@@ -1,6 +1,6 @@
+import { BaseRepository } from "#base";
+import type { User } from "#interfaces";
 import { Pool } from "pg";
-import { BaseRepository } from "../base/base.repository.js";
-import type { User } from "../interfaces/user.interface.js";
 
 export class UserRepository extends BaseRepository<User> {
   constructor(db: Pool) {

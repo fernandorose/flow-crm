@@ -1,8 +1,7 @@
+import { connectDB, db } from "#database";
+import { CompanyRoutesFactory, UserRoutesFactory } from "#factory";
 import express, { type Express } from "express";
 import http from "node:http";
-import { connectDB, db } from "../database/connection.js";
-import { CompanyRoutesFactory } from "../factory/company.factory.js";
-import { UserRoutesFactory } from "../factory/user.factory.js";
 
 export class Server {
   private app: Express;

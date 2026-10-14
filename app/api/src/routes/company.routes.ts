@@ -1,6 +1,6 @@
-import { BaseRoutes } from "../base/base.routes.js";
-import { CompanyController } from "../controller/company.controller.js";
-import type { Company } from "../interfaces/company.interface.js";
+import { BaseRoutes } from "#base";
+import type { CompanyController } from "#controller";
+import type { Company } from "#interfaces";
 
 export class CompanyRoutes extends BaseRoutes<Company> {
   constructor(controller: CompanyController) {

@@ -1,5 +1,5 @@
+import type { BaseController } from "#base/base.controller.js";
 import { Router } from "express";
-import type { BaseController } from "./base.controller.js";
 
 export class BaseRoutes<T extends object> {
   public router: Router;

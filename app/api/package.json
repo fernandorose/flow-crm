@@ -20,5 +20,28 @@
     "prettier": "3.9.9",
     "tsx": "4.23.15",
     "typescript": "7.0.2"
+  },
+  "imports": {
+    "#/*": "./src/*",
+    "#database": "./src/database/index.ts",
+    "#database/*": "./src/database/*",
+    "#config": "./src/config/index.ts",
+    "#config/*": "./src/config/*",
+    "#factory": "./src/factory/index.ts",
+    "#factory/*": "./src/factory/*",
+    "#repository": "./src/repository/index.ts",
+    "#repository/*": "./src/repository/*",
+    "#services": "./src/services/index.ts",
+    "#services/*": "./src/services/*",
+    "#controller": "./src/controller/index.ts",
+    "#controller/*": "./src/controller/*",
+    "#routes": "./src/routes/index.ts",
+    "#routes/*": "./src/routes/*",
+    "#interfaces": "./src/interfaces/index.ts",
+    "#interfaces/*": "./src/interfaces/*",
+    "#base": "./src/base/index.ts",
+    "#base/*": "./src/base/*",
+    "#start": "./src/start/index.ts",
+    "#start/*": "./src/start/*"
   }
 }

@@ -1,7 +1,7 @@
+import { BaseController } from "#base";
+import type { User } from "#interfaces";
+import type { UserService } from "#services";
 import type { Request, Response } from "express";
-import { BaseController } from "../base/base.controller.js";
-import type { User } from "../interfaces/user.interface.js";
-import { UserService } from "../services/user.service.js";
 
 export class UserController extends BaseController<User> {
   constructor(service: UserService) {

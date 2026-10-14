@@ -1,5 +1,5 @@
+import type { BaseService } from "#base/base.service.js";
 import type { Request, Response } from "express";
-import type { BaseService } from "./base.service.js";
 
 export class BaseController<T extends object> {
   constructor(private service: BaseService<T>) {}

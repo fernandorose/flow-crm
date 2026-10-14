@@ -1,6 +1,6 @@
-import { BaseService } from "../base/base.service.js";
-import type { User } from "../interfaces/user.interface.js";
-import { UserRepository } from "../repository/user.repository.js";
+import { BaseService } from "#base";
+import type { User } from "#interfaces";
+import type { UserRepository } from "#repository";
 
 export class UserService extends BaseService<User> {
   constructor(repository: UserRepository) {

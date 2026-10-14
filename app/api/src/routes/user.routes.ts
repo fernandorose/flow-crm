@@ -1,6 +1,6 @@
-import { BaseRoutes } from "../base/base.routes.js";
-import { UserController } from "../controller/user.controller.js";
-import type { User } from "../interfaces/user.interface.js";
+import { BaseRoutes } from "#base";
+import type { UserController } from "#controller";
+import type { User } from "#interfaces";
 
 export class UserRoutes extends BaseRoutes<User> {
   constructor(controller: UserController) {
