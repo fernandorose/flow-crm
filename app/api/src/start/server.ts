@@ -1,5 +1,9 @@
 import { connectDB, db } from "#database";
-import { CompanyRoutesFactory, UserRoutesFactory } from "#factory";
+import {
+  CompanyRoutesFactory,
+  CustomerRoutesFactory,
+  UserRoutesFactory,
+} from "#factory";
 import express, { type Express } from "express";
 import http from "node:http";
 
@@ -23,6 +27,7 @@ export class Server {
 
   private routes(): void {
     this.app.use("/api/users", UserRoutesFactory.create(db).router);
+    this.app.use("/api/customers", CustomerRoutesFactory.create(db).router);
     this.app.use("/api/companies", CompanyRoutesFactory.create(db).router);
     this.app.get("/", (_req, res) => {
       res.send("Hello World");

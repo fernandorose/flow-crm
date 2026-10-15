@@ -2,7 +2,7 @@ import type { Pool } from "pg";
 
 export class BaseRepository<T extends object> {
   constructor(
-    private db: Pool,
+    protected db: Pool,
     private tableName: string,
   ) {}
 

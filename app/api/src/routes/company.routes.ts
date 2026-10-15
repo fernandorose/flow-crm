@@ -3,15 +3,19 @@ import type { CompanyController } from "#controller";
 import type { Company } from "#interfaces";
 
 export class CompanyRoutes extends BaseRoutes<Company> {
-  constructor(controller: CompanyController) {
-    super(controller);
+  constructor(private readonly companyController: CompanyController) {
+    super(companyController);
   }
 
   protected override routes(): void {
     super.routes();
 
     this.router.post("/companies", (req, res) =>
-      this.controller.create(req, res),
+      this.companyController.create(req, res),
+    );
+
+    this.router.get("/:companyId/data", (req, res) =>
+      this.companyController.getCompanyData(req, res),
     );
   }
 }

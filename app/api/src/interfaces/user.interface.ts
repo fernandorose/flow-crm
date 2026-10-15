@@ -3,6 +3,7 @@ export interface User {
   company_id: string;
   email: string;
   name: string;
+  password: string;
   password_hash: string;
   role: string;
   created_at: Date;

@@ -2,7 +2,7 @@ import type { BaseService } from "#base/base.service.js";
 import type { Request, Response } from "express";
 
 export class BaseController<T extends object> {
-  constructor(private service: BaseService<T>) {}
+  constructor(protected service: BaseService<T>) {}
 
   public async create(req: Request, res: Response): Promise<void> {
     try {

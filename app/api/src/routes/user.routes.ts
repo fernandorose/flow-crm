@@ -3,17 +3,27 @@ import type { UserController } from "#controller";
 import type { User } from "#interfaces";
 
 export class UserRoutes extends BaseRoutes<User> {
-  constructor(controller: UserController) {
-    super(controller);
+  constructor(private readonly userController: UserController) {
+    super(userController);
   }
 
   protected override routes(): void {
-    super.routes();
-
-    this.router.get("/users/:email", (req, res) =>
-      this.controller.getByEmail(req, res),
+    this.router.post("/", (req, res) =>
+      this.userController.createUser(req, res),
     );
-    this.router.get("/users", (req, res) => this.controller.getAll(req, res));
-    this.router.post("/users", (req, res) => this.controller.create(req, res));
+
+    this.router.post("/:userId/company", (req, res) =>
+      this.userController.addCompanyToUser(req, res),
+    );
+
+    this.router.get("/", (req, res) =>
+      this.userController.getAllUsers(req, res),
+    );
+
+    this.router.get("/email/:email", (req, res) =>
+      this.userController.getUserByEmail(req, res),
+    );
+
+    this.router.get("/:id", (req, res) => this.controller.getById(req, res));
   }
 }

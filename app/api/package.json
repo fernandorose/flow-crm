@@ -11,10 +11,13 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@types/bcrypt": "6.0.0",
     "@types/express": "5.0.6",
     "@types/node": "26.6.2",
     "@types/pg": "8.23.1",
+    "bcrypt": "6.0.0",
     "express": "5.2.1",
+    "jsonwebtoken": "^9.0.3",
     "nodemon": "3.1.14",
     "pg": "8.23.0",
     "prettier": "3.9.9",
@@ -42,6 +45,8 @@
     "#base": "./src/base/index.ts",
     "#base/*": "./src/base/*",
     "#start": "./src/start/index.ts",
-    "#start/*": "./src/start/*"
+    "#start/*": "./src/start/*",
+    "#util": "./src/util/index.ts",
+    "#util/*": "./src/util/*"
   }
 }

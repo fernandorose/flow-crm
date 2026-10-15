@@ -3,11 +3,15 @@ import type { Company } from "#interfaces";
 import type { CompanyRepository } from "#repository";
 
 export class CompanyService extends BaseService<Company> {
-  constructor(repository: CompanyRepository) {
-    super(repository);
+  constructor(private readonly companyRepository: CompanyRepository) {
+    super(companyRepository);
   }
 
   public async createCompany(companyData: Company) {
-    return await this.create(companyData);
+    return this.create(companyData);
+  }
+
+  public async getCompanyData(companyId: string) {
+    return this.companyRepository.getCompanyData(companyId);
   }
 }

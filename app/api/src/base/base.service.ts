@@ -6,7 +6,7 @@ interface Repository<T extends object> {
 }
 
 export class BaseService<T extends object> {
-  constructor(private repository: Repository<T>) {}
+  constructor(protected repository: Repository<T>) {}
 
   public async create(data: T): Promise<T> {
     return this.repository.create(data);
