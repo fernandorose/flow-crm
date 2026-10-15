@@ -1,5 +1,5 @@
 import { BaseRoutes } from "#base";
-import type { CustomerController } from "#controller/customer.controller.js";
+import type { CustomerController } from "#controllers";
 import type { Customer } from "#interfaces";
 
 export class CustomerRoutes extends BaseRoutes<Customer> {
@@ -10,6 +10,10 @@ export class CustomerRoutes extends BaseRoutes<Customer> {
   protected override routes(): void {
     this.router.post("/", (req, res) =>
       this.customerController.createCustomer(req, res),
+    );
+
+    this.router.post("/:id", (req, res) =>
+      this.customerController.update(req, res),
     );
 
     this.router.get("/", (req, res) =>

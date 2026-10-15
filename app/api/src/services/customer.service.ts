@@ -15,7 +15,14 @@ export class CustomerService extends BaseService<Customer> {
     return await this.getAll();
   }
 
-  public async createCustomer(userData: Customer): Promise<Customer> {
-    return await this.create(userData);
+  public async createCustomer(customerData: Customer): Promise<Customer> {
+    return await this.create(customerData);
+  }
+
+  public async updateCustomer(
+    id: string,
+    customerData: Customer,
+  ): Promise<Customer | null> {
+    return await this.update(id, customerData);
   }
 }

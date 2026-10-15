@@ -1,8 +1,8 @@
-import { CustomerController } from "#controller";
 import { CustomerRepository } from "#repository";
 import { CustomerRoutes } from "#routes";
 import { CustomerService } from "#services";
 import type { Pool } from "pg";
+import { CustomerController } from "../controllers/index.js";
 
 export class CustomerRoutesFactory {
   static create(db: Pool): CustomerRoutes {

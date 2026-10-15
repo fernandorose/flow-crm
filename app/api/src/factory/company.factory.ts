@@ -1,8 +1,8 @@
-import { CompanyController } from "#controller";
 import { CompanyRepository } from "#repository";
 import { CompanyRoutes } from "#routes";
 import { CompanyService } from "#services";
 import type { Pool } from "pg";
+import { CompanyController } from "../controllers/index.js";
 
 export class CompanyRoutesFactory {
   static create(db: Pool): CompanyRoutes {

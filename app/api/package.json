@@ -13,6 +13,7 @@
   "dependencies": {
     "@types/bcrypt": "6.0.0",
     "@types/express": "5.0.6",
+    "@types/jsonwebtoken": "9.0.10",
     "@types/node": "26.6.2",
     "@types/pg": "8.23.1",
     "bcrypt": "6.0.0",
@@ -36,8 +37,8 @@
     "#repository/*": "./src/repository/*",
     "#services": "./src/services/index.ts",
     "#services/*": "./src/services/*",
-    "#controller": "./src/controller/index.ts",
-    "#controller/*": "./src/controller/*",
+    "#controllers": "./src/controllers/index.ts",
+    "#controllers/*": "./src/controllers/*",
     "#routes": "./src/routes/index.ts",
     "#routes/*": "./src/routes/*",
     "#interfaces": "./src/interfaces/index.ts",
@@ -47,6 +48,8 @@
     "#start": "./src/start/index.ts",
     "#start/*": "./src/start/*",
     "#util": "./src/util/index.ts",
-    "#util/*": "./src/util/*"
+    "#util/*": "./src/util/*",
+    "#middlewares": "./src/middlewares/index.ts",
+    "#middlewares/*": "./src/middlewares/*"
   }
 }

@@ -14,6 +14,28 @@ export class BaseController<T extends object> {
     }
   }
 
+  public async update(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+      const data = req.body as Partial<T>;
+      if (typeof id !== "string") {
+        res.status(400).json({ error: "Invalid id" });
+        return;
+      }
+      const updatedData = await this.service.update(id, data);
+
+      if (!updatedData) {
+        res.status(404).json({ error: "Record not found" });
+        return;
+      }
+
+      res.status(200).json(updatedData);
+    } catch (error) {
+      console.error("Error updating record:", error);
+      res.status(500).json({ error: "Failed to update record" });
+    }
+  }
+
   public async getAll(req: Request, res: Response): Promise<void> {
     try {
       const data = await this.service.getAll();

@@ -19,4 +19,8 @@ export class CustomerController extends BaseController<Customer> {
   public async getAllCustomers(req: Request, res: Response): Promise<void> {
     return this.getAll(req, res);
   }
+
+  public async updateCustomer(req: Request, res: Response): Promise<void> {
+    return this.update(req, res);
+  }
 }

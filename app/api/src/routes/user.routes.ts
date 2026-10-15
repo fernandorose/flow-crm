@@ -1,6 +1,7 @@
 import { BaseRoutes } from "#base";
-import type { UserController } from "#controller";
+import type { UserController } from "#controllers";
 import type { User } from "#interfaces";
+import { RoleMiddleware } from "#middlewares";
 
 export class UserRoutes extends BaseRoutes<User> {
   constructor(private readonly userController: UserController) {
@@ -8,7 +9,9 @@ export class UserRoutes extends BaseRoutes<User> {
   }
 
   protected override routes(): void {
-    this.router.post("/", (req, res) =>
+    const roleMiddleware = new RoleMiddleware();
+
+    this.router.post("/", roleMiddleware.authorize("admin"), (req, res) =>
       this.userController.createUser(req, res),
     );
 

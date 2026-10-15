@@ -1,8 +1,8 @@
-import { UserController } from "#controller";
 import { UserRepository } from "#repository";
 import { UserRoutes } from "#routes";
 import { UserService } from "#services";
 import type { Pool } from "pg";
+import { UserController } from "../controllers/index.js";
 
 export class UserRoutesFactory {
   static create(db: Pool): UserRoutes {

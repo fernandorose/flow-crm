@@ -18,4 +18,11 @@ export class CustomerRepository extends BaseRepository<Customer> {
   public async getAllCustomers(): Promise<Customer[]> {
     return this.getAll();
   }
+
+  public async updateCustomer(
+    id: string,
+    customerData: Customer,
+  ): Promise<Customer | null> {
+    return this.update(id, customerData);
+  }
 }

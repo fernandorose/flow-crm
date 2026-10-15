@@ -1,5 +1,5 @@
 import { BaseRoutes } from "#base";
-import type { CompanyController } from "#controller";
+import type { CompanyController } from "#controllers";
 import type { Company } from "#interfaces";
 
 export class CompanyRoutes extends BaseRoutes<Company> {
