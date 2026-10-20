@@ -1,4 +1,5 @@
 import { AuthController } from "#controllers";
+import { AuthMiddleware } from "#middlewares";
 import { UserRepository } from "#repository";
 import { AuthRoutes } from "#routes";
 import { AuthService } from "#services";
@@ -9,6 +10,7 @@ export class AuthRoutesFactory {
     const userRepository = new UserRepository(db);
     const authService = new AuthService(userRepository);
     const authController = new AuthController(authService);
-    return new AuthRoutes(authController);
+    const authMiddleware = new AuthMiddleware();
+    return new AuthRoutes(authController, authMiddleware);
   }
 }

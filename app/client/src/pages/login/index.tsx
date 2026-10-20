@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../../components/form";
 import { useAuth } from "../../hooks/auth";
 import Layout from "../../layouts/default";
@@ -9,15 +10,12 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const { signIn, loading, error } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    const result = await signIn(email, password);
-
-    if (result) {
-      // Siguiente paso: guardar/establecer la sesión
-      // y navegar al dashboard.
-      alert(result.token);
-    }
+    (await signIn(email, password))
+      ? navigate("/", { replace: true })
+      : alert("Bad credentials");
   };
 
   return (

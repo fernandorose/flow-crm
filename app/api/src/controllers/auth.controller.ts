@@ -44,4 +44,17 @@ export class AuthController {
       });
     }
   }
+
+  public logout(req: Request, res: Response): void {
+    res.clearCookie("access_token", {
+      httpOnly: true,
+      // secure: env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+    });
+
+    res.status(200).json({
+      message: "Logged out successfully",
+    });
+  }
 }

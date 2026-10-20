@@ -15,3 +15,33 @@ export async function login(email: string, password: string) {
 
   return data as { token: string };
 }
+
+export async function getSession() {
+  const response = await fetch("http://localhost:3000/api/auth/me", {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("No active session");
+  }
+
+  return response.json() as Promise<{
+    authenticated: true;
+    user: {
+      userId: string;
+      companyId: string | null;
+      role: string;
+    };
+  }>;
+}
+
+export async function logout() {
+  const response = await fetch("http://localhost:3000/api/auth/logout", {
+    method: "POST",
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Could not log out");
+  }
+}
