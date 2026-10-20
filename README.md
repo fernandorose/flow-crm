@@ -1,4 +1,6 @@
-# FlowCRM
+<p align="center">
+  <img src="public/logo.svg" width="400" alt="Logo">
+</p>
 
 FlowCRM is a CRM system designed to help small businesses manage customers, leads, sales, and internal activities.
 
