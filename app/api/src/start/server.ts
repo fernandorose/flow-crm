@@ -1,9 +1,12 @@
 import { connectDB, db } from "#database";
 import {
+  AuthRoutesFactory,
   CompanyRoutesFactory,
   CustomerRoutesFactory,
   UserRoutesFactory,
 } from "#factory";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import express, { type Express } from "express";
 import http from "node:http";
 
@@ -23,9 +26,17 @@ export class Server {
 
   private middlewares(): void {
     this.app.use(express.json());
+    this.app.use(
+      cors({
+        origin: "http://localhost:5173",
+        credentials: true,
+      }),
+    );
+    this.app.use(cookieParser());
   }
 
   private routes(): void {
+    this.app.use("/api/auth", AuthRoutesFactory.create(db).router);
     this.app.use("/api/users", UserRoutesFactory.create(db).router);
     this.app.use("/api/customers", CustomerRoutesFactory.create(db).router);
     this.app.use("/api/companies", CompanyRoutesFactory.create(db).router);

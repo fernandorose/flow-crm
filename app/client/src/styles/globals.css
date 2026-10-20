@@ -1,14 +1,17 @@
 :root {
   --default-font: "Inter Variable";
   --condensed-font: "Roboto Condensed Variable";
+  --accent: #2fdab5;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color-scheme: dark;
 }
 
 body {
   font-family: var(--default-font);
+  background: #181818;
 }

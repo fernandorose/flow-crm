@@ -25,4 +25,5 @@ export const optionalEnv = (name: string): string | undefined => {
 
 export const env = {
   DATABASE_URL: requiredEnv("DATABASE_URL"),
+  JWT_SECRET: requiredEnv("JWT_SECRET"),
 };

@@ -1,24 +1,23 @@
+import { env } from "#config";
 import type { AuthPayload } from "#interfaces";
 import type { NextFunction, Request, Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 
 export class AuthMiddleware {
   public authenticate(req: Request, res: Response, next: NextFunction): void {
-    const authHeader = req.headers.authorization;
+    const token = req.cookies?.access_token;
+    const secret = env.JWT_SECRET;
 
-    if (!authHeader?.startsWith("Bearer ")) {
+    if (!token) {
       res.status(401).json({
         error: "Authentication token required",
       });
       return;
     }
 
-    const token = authHeader.split(" ")[1];
-    const secret = process.env.JWT_SECRET;
-
-    if (!secret || !token) {
-      res.status(401).json({
-        error: "Invalid authentication configuration or token",
+    if (!secret) {
+      res.status(500).json({
+        error: "Authentication configuration error",
       });
       return;
     }
@@ -29,7 +28,9 @@ export class AuthMiddleware {
       });
 
       if (typeof decoded === "string") {
-        res.status(401).json({ error: "Invalid token payload" });
+        res.status(401).json({
+          error: "Invalid token payload",
+        });
         return;
       }
 
@@ -40,7 +41,9 @@ export class AuthMiddleware {
         typeof payload.role !== "string" ||
         !(typeof payload.companyId === "string" || payload.companyId === null)
       ) {
-        res.status(401).json({ error: "Invalid token payload" });
+        res.status(401).json({
+          error: "Invalid token payload",
+        });
         return;
       }
 
