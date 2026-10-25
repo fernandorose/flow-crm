@@ -1,10 +1,10 @@
 <p align="center">
   <img src="public/logo.svg" width="400" alt="Logo">
+
+  <div align="center"> FlowCRM is a CRM system designed to help small businesses manage customers, leads, sales, and internal activities.
+  The project is being developed as a learning and portfolio project focused on backend development, relational databases, REST APIs, authentication, and business software architecture.</div>
+ 
 </p>
-
-FlowCRM is a CRM system designed to help small businesses manage customers, leads, sales, and internal activities.
-
-The project is being developed as a learning and portfolio project focused on backend development, relational databases, REST APIs, authentication, and business software architecture.
 
 ## Features
 
